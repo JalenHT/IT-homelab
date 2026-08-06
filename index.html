@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jalen Thomas — IT Systems Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090f;
+  --surface: #0d1117;
+  --surface2: #131a24;
+  --border: #1c2536;
+  --border2: #243044;
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0,212,255,0.08);
+  --cyan-mid: rgba(0,212,255,0.18);
+  --green: #00e5a0;
+  --green-dim: rgba(0,229,160,0.08);
+  --amber: #ffb547;
+  --amber-dim: rgba(255,181,71,0.08);
+  --red: #ff6b6b;
+  --purple: #c084fc;
+  --purple-dim: rgba(192,132,252,0.08);
+  --text: #dce8f5;
+  --text-dim: #7a92b0;
+  --text-muted: #3d5470;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;}
+
+/* Scanline overlay */
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999;}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,9,15,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1000px;margin:0 auto;padding:0 24px;height:56px;display:flex;justify-content:space-between;align-items:center;}
+.nav-id{font-family:var(--mono);font-size:12px;color:var(--cyan);letter-spacing:0.1em;}
+.nav-id span{color:var(--text-muted);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--cyan);}
+
+/* Layout */
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
+
+/* Hero */
+.hero{padding:120px 0 72px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-120px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,0.04) 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--cyan);}
+.hero h1{font-family:var(--mono);font-size:clamp(40px,7vw,72px);font-weight:700;line-height:1.0;color:#fff;margin-bottom:12px;letter-spacing:-0.02em;}
+.hero h1 .dim{color:var(--text-muted);}
+.hero-role{font-family:var(--mono);font-size:clamp(14px,2vw,18px);color:var(--cyan);margin-bottom:24px;font-weight:400;}
+.hero-bio{font-size:16px;color:var(--text-dim);max-width:540px;line-height:1.75;margin-bottom:36px;}
+.hero-bio strong{color:var(--text);font-weight:500;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:4px;font-family:var(--mono);font-size:12px;font-weight:600;text-decoration:none;letter-spacing:0.05em;transition:all 0.2s;border:none;cursor:pointer;}
+.btn-primary{background:var(--cyan);color:#000;}
+.btn-primary:hover{background:#33dcff;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,212,255,0.2);}
+.btn-ghost{background:transparent;color:var(--cyan);border:1px solid var(--border2);}
+.btn-ghost:hover{border-color:var(--cyan);background:var(--cyan-dim);}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:56px 0;}
+.stat-item{background:var(--surface);padding:20px 16px;text-align:center;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-n{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--cyan);display:block;line-height:1;}
+.stat-l{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em;margin-top:6px;}
+
+/* Section */
+section{padding:64px 0;border-bottom:1px solid var(--border);}
+.sec-header{display:flex;align-items:center;gap:14px;margin-bottom:36px;}
+.sec-tag{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.18em;white-space:nowrap;}
+.sec-rule{flex:1;height:1px;background:var(--border);}
+
+/* Cert */
+.cert-row{display:flex;gap:12px;flex-wrap:wrap;}
+.cert{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--surface);border:1px solid var(--border);border-radius:6px;transition:border-color 0.2s;}
+.cert:hover{border-color:var(--cyan);}
+.cert-dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);flex-shrink:0;}
+.cert-dot.blue{background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+.cert-name{font-size:13px;font-weight:500;color:var(--text);}
+.cert-sub{font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px;}
+
+/* Skills */
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.skill-block{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;transition:border-color 0.2s;}
+.skill-block:hover{border-color:var(--border2);}
+.skill-cat{font-family:var(--mono);font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:10px;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tag{font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:3px;border:1px solid;}
+.tag-cyan{background:var(--cyan-dim);color:var(--cyan);border-color:rgba(0,212,255,0.2);}
+.tag-green{background:var(--green-dim);color:var(--green);border-color:rgba(0,229,160,0.2);}
+.tag-purple{background:var(--purple-dim);color:var(--purple);border-color:rgba(192,132,252,0.2);}
+.tag-amber{background:var(--amber-dim);color:var(--amber);border-color:rgba(255,181,71,0.2);}
+.tag-red{background:rgba(255,107,107,0.08);color:var(--red);border-color:rgba(255,107,107,0.2);}
+
+/* Lab section label */
+.lab-group-label{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.15em;padding:8px 0;border-bottom:1px solid var(--border);margin-bottom:10px;margin-top:28px;}
+.lab-group-label:first-of-type{margin-top:0;}
+
+/* Lab cards */
+.lab-list{display:flex;flex-direction:column;gap:8px;}
+.lab-card{display:grid;grid-template-columns:56px 1fr auto;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-decoration:none;transition:border-color 0.2s,background 0.2s;overflow:hidden;}
+.lab-card:hover{border-color:var(--cyan);background:var(--surface2);}
+.lab-n{font-family:var(--mono);font-size:11px;color:var(--text-muted);width:56px;display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border);flex-shrink:0;background:rgba(0,0,0,0.2);}
+.lab-body{padding:14px 18px;}
+.lab-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.lab-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:8px;}
+.lab-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.lab-badge{padding:10px 16px;display:flex;align-items:center;flex-shrink:0;border-left:1px solid var(--border);}
+.badge-done{font-family:var(--mono);font-size:10px;color:var(--green);background:var(--green-dim);border:1px solid rgba(0,229,160,0.2);padding:4px 10px;border-radius:20px;white-space:nowrap;}
+
+/* Environments */
+.env-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.env-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;}
+.env-label{font-family:var(--mono);font-size:9px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:8px;}
+.env-val{font-family:var(--mono);font-size:12px;color:var(--text-dim);line-height:1.7;}
+
+/* Experience */
+.exp-list{display:flex;flex-direction:column;gap:12px;}
+.exp-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px 22px;}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.exp-title{font-size:14px;font-weight:500;color:var(--text);}
+.exp-org{font-family:var(--mono);font-size:11px;color:var(--cyan);margin-top:3px;}
+.exp-date{font-family:var(--mono);font-size:11px;color:var(--text-muted);white-space:nowrap;}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.exp-bullets li{font-size:13px;color:var(--text-dim);padding-left:16px;position:relative;line-height:1.5;}
+.exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--cyan);font-size:10px;top:4px;}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.contact-card{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-decoration:none;transition:border-color 0.2s;}
+.contact-card:hover{border-color:var(--cyan);}
+.contact-icon{width:36px;height:36px;background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.contact-lbl{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;}
+.contact-val{font-size:13px;color:var(--text);margin-top:2px;}
+
+/* Footer */
+footer{padding:32px 0;text-align:center;}
+.footer-mono{font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:0.05em;}
+
+/* Terminal blink */
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.cursor{display:inline-block;width:3px;height:1em;background:var(--cyan);margin-left:4px;vertical-align:text-bottom;animation:blink 1.1s step-end infinite;}
+
+/* Responsive */
+@media(max-width:640px){
+  .stats-bar{grid-template-columns:1fr 1fr;}
+  .skill-grid,.env-grid,.contact-grid{grid-template-columns:1fr;}
+  .lab-card{grid-template-columns:1fr;}
+  .lab-n{display:none;}
+  .lab-badge{border-left:none;border-top:1px solid var(--border);justify-content:flex-start;padding:8px 18px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-id">jalen.thomas<span>@it-lab</span></span>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#labs">Labs</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-eyebrow">IT Support · Systems Administration</div>
+    <h1>Jalen<br><span class="dim">Thomas</span></h1>
+    <div class="hero-role">Help Desk · IT Support · Houston/Spring, TX<span class="cursor"></span></div>
+    <p class="hero-bio">
+      Security-certified IT professional with <strong>13 documented hands-on labs</strong> covering Active Directory, Windows Server, ServiceNow, self-hosted help desk systems, and PowerShell automation. Actively seeking a help desk role as a first step toward Systems Administration.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/JalenHT/IT-homelab" target="_blank" class="btn btn-primary">↗ GitHub Lab Portfolio</a>
+      <a href="https://www.linkedin.com/in/jalen-t-19817a379/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item"><span class="stat-n">13</span><div class="stat-l">Labs Complete</div></div>
+    <div class="stat-item"><span class="stat-n">2</span><div class="stat-l">Certifications</div></div>
+    <div class="stat-item"><span class="stat-n">3</span><div class="stat-l">Environments</div></div>
+    <div class="stat-item"><span class="stat-n">15+</span><div class="stat-l">Scripts Written</div></div>
+  </div>
+
+  <section id="certs">
+    <div class="sec-header"><span class="sec-tag">Certifications</span><div class="sec-rule"></div></div>
+    <div class="cert-row">
+      <div class="cert"><div class="cert-dot"></div><div><div class="cert-name">CompTIA Security+</div><div class="cert-sub">CompTIA · SY0-701 · Active</div></div></div>
+      <div class="cert"><div class="cert-dot blue"></div><div><div class="cert-name">Cybersecurity 101</div><div class="cert-sub">TryHackMe · Completed</div></div></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-header"><span class="sec-tag">Technical Skills</span><div class="sec-rule"></div></div>
+    <div class="skill-grid">
+      <div class="skill-block">
+        <div class="skill-cat">Cloud Identity</div>
+        <div class="tags">
+          <span class="tag tag-cyan">Entra ID</span>
+          <span class="tag tag-cyan">RBAC</span>
+          <span class="tag tag-cyan">MFA</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">On-Premises Active Directory</div>
+        <div class="tags">
+          <span class="tag tag-purple">AD DS</span>
+          <span class="tag tag-purple">GPO</span>
+          <span class="tag tag-purple">ADUC</span>
+          <span class="tag tag-purple">Domain Controller</span>
+          <span class="tag tag-purple">DNS</span>
+          <span class="tag tag-purple">OU Design</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">IT Help Desk</div>
+        <div class="tags">
+          <span class="tag tag-green">ServiceNow PDI</span>
+          <span class="tag tag-green">osTicket</span>
+          <span class="tag tag-green">Ticket Lifecycle</span>
+          <span class="tag tag-green">SLA Management</span>
+          <span class="tag tag-green">Account Unlock</span>
+          <span class="tag tag-green">Password Reset</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Automation & Scripting</div>
+        <div class="tags">
+          <span class="tag tag-amber">PowerShell 7</span>
+          <span class="tag tag-amber">Graph API</span>
+          <span class="tag tag-amber">AD PowerShell</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Linux & Infrastructure</div>
+        <div class="tags">
+          <span class="tag tag-red">Ubuntu Server</span>
+          <span class="tag tag-red">LAMP Stack</span>
+          <span class="tag tag-red">Apache</span>
+          <span class="tag tag-red">MySQL</span>
+          <span class="tag tag-red">VirtualBox</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Tools & Platforms</div>
+        <div class="tags">
+          <span class="tag tag-cyan">VS Code</span>
+          <span class="tag tag-cyan">GitHub</span>
+          <span class="tag tag-cyan">Azure Portal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="labs">
+    <div class="sec-header"><span class="sec-tag">Home Lab Portfolio</span><div class="sec-rule"></div></div>
+
+    <div class="lab-group-label">☁ Cloud Identity & Automation (Labs 1–4)</div>
+    <div class="lab-list">
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab1-Users-Groups-RBAC" target="_blank" class="lab-card">
+        <div class="lab-n">01</div>
+        <div class="lab-body">
+          <div class="lab-title">Users, Groups & RBAC</div>
+          <div class="lab-desc">Created 5 test users, configured security and M365 groups, assigned RBAC roles directly and via group membership, tested least privilege access.</div>
+          <div class="lab-tags"><span class="tag tag-cyan">User Lifecycle</span><span class="tag tag-cyan">RBAC</span><span class="tag tag-cyan">Group Management</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab2-MFA" target="_blank" class="lab-card">
+        <div class="lab-n">02</div>
+        <div class="lab-body">
+          <div class="lab-title">MFA & Authentication Methods</div>
+          <div class="lab-desc">Enabled Security Defaults, registered Microsoft Authenticator, tested MFA flows, analyzed sign-in logs showing Success, Interrupted, and Failure events.</div>
+          <div class="lab-tags"><span class="tag tag-cyan">MFA</span><span class="tag tag-cyan">Security Defaults</span><span class="tag tag-cyan">Sign-in Logs</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab4-Powershell-Microsoft-Graph-API" target="_blank" class="lab-card">
+        <div class="lab-n">03</div>
+        <div class="lab-body">
+          <div class="lab-title">PowerShell & Microsoft Graph API</div>
+          <div class="lab-desc">Connected to Entra ID via Graph API, queried users and groups, created and disabled users programmatically using New-MgUser and Update-MgUser.</div>
+          <div class="lab-tags"><span class="tag tag-amber">PowerShell 7</span><span class="tag tag-amber">Graph API</span><span class="tag tag-amber">Automation</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab5-Csv-Bulk-User-Creation" target="_blank" class="lab-card">
+        <div class="lab-n">04</div>
+        <div class="lab-body">
+          <div class="lab-title">Bulk User Creation via CSV</div>
+          <div class="lab-desc">Built a PowerShell script that reads employee data from CSV and automatically provisions all accounts in Entra ID with error handling and status logging.</div>
+          <div class="lab-tags"><span class="tag tag-amber">CSV Automation</span><span class="tag tag-amber">Bulk Provisioning</span><span class="tag tag-amber">Error Handling</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+    </div>
+
+    <div class="lab-group-label">🏠 On-Premises & Hybrid Active Directory (Labs 5–10)</div>
+    <div class="lab-list">
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab6-AD-Domain-Controller" target="_blank" class="lab-card">
+        <div class="lab-n">05</div>
+        <div class="lab-body">
+          <div class="lab-title">Active Directory Domain Controller Setup</div>
+          <div class="lab-desc">Installed Windows Server 2022 in VirtualBox, deployed AD DS role, promoted server to Domain Controller, created new forest lab.local.</div>
+          <div class="lab-tags"><span class="tag tag-purple">Windows Server 2022</span><span class="tag tag-purple">AD DS</span><span class="tag tag-purple">Domain Controller</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab7-OUs-Users" target="_blank" class="lab-card">
+        <div class="lab-n">06</div>
+        <div class="lab-body">
+          <div class="lab-title">Organizational Units & Users in AD</div>
+          <div class="lab-desc">Created IT, HR, and Finance OUs, provisioned 5 domain users in correct OUs, created security groups with proper membership.</div>
+          <div class="lab-tags"><span class="tag tag-purple">ADUC</span><span class="tag tag-purple">OU Design</span><span class="tag tag-purple">Security Groups</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab8-GPO" target="_blank" class="lab-card">
+        <div class="lab-n">07</div>
+        <div class="lab-body">
+          <div class="lab-title">Group Policy Objects (GPO)</div>
+          <div class="lab-desc">Created Password-Policy GPO (12 char min, complexity, 5 attempt lockout) and Desktop-Lockout GPO. Verified using gpupdate and net accounts.</div>
+          <div class="lab-tags"><span class="tag tag-purple">GPO</span><span class="tag tag-purple">Password Policy</span><span class="tag tag-purple">Account Lockout</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab9-Domain-Join" target="_blank" class="lab-card">
+        <div class="lab-n">08</div>
+        <div class="lab-body">
+          <div class="lab-title">Domain Join Windows 10 Client</div>
+          <div class="lab-desc">Configured static IPs and internal network between VMs, set DNS to Domain Controller, joined Windows 10 Enterprise to lab.local, verified domain login.</div>
+          <div class="lab-tags"><span class="tag tag-purple">Domain Join</span><span class="tag tag-purple">DNS</span><span class="tag tag-purple">Workstation Provisioning</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab10-AD-PowerShell" target="_blank" class="lab-card">
+        <div class="lab-n">09</div>
+        <div class="lab-body">
+          <div class="lab-title">Active Directory PowerShell Automation</div>
+          <div class="lab-desc">Used Get-ADUser, New-ADUser, Disable-ADAccount, Get-ADGroupMember to manage domain users and groups programmatically.</div>
+          <div class="lab-tags"><span class="tag tag-amber">Get-ADUser</span><span class="tag tag-amber">New-ADUser</span><span class="tag tag-amber">Disable-ADAccount</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab11-Entra-Connect-Hybrid-Identity" target="_blank" class="lab-card">
+        <div class="lab-n">10</div>
+        <div class="lab-body">
+          <div class="lab-title">Microsoft Entra Connect — Hybrid Identity</div>
+          <div class="lab-desc">Configured hybrid identity sync between on-prem AD and Entra ID. Added UPN suffixes, installed Entra Connect Sync, troubleshot AADSTS700027 certificate error.</div>
+          <div class="lab-tags"><span class="tag tag-red">Entra Connect</span><span class="tag tag-red">Hybrid Identity</span><span class="tag tag-red">Sync Troubleshooting</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+    </div>
+
+    <div class="lab-group-label">🎫 IT Help Desk & ITSM (Labs 11–13)</div>
+    <div class="lab-list">
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab16-servicenow-pdi" target="_blank" class="lab-card">
+        <div class="lab-n">11</div>
+        <div class="lab-body">
+          <div class="lab-title">ServiceNow PDI — Catalog, Incidents & SLAs</div>
+          <div class="lab-desc">Built access request and onboarding catalog items with approval workflows, created and resolved incidents with work notes, reviewed SLA definitions, built a help desk dashboard.</div>
+          <div class="lab-tags"><span class="tag tag-green">Catalog Builder</span><span class="tag tag-green">Incident Management</span><span class="tag tag-green">SLA</span><span class="tag tag-green">Dashboard</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab17-osTicket" target="_blank" class="lab-card">
+        <div class="lab-n">12</div>
+        <div class="lab-body">
+          <div class="lab-title">osTicket Self-Hosted Help Desk</div>
+          <div class="lab-desc">Deployed Ubuntu Server in VirtualBox, installed LAMP stack, self-hosted osTicket v1.18.1. Configured departments, agents, SLA plans, and resolved 3 simulated help desk tickets.</div>
+          <div class="lab-tags"><span class="tag tag-red">Ubuntu Server</span><span class="tag tag-red">LAMP Stack</span><span class="tag tag-green">osTicket</span><span class="tag tag-green">Ticket Workflows</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab/tree/main/Lab18-AD-HelpDesk-Scenarios" target="_blank" class="lab-card">
+        <div class="lab-n">13</div>
+        <div class="lab-body">
+          <div class="lab-title">Active Directory Help Desk Scenarios</div>
+          <div class="lab-desc">Simulated 10 real help desk tickets in lab.local — account unlocks, password resets, group access changes, user onboarding, termination, OU transfers, and security audits.</div>
+          <div class="lab-tags"><span class="tag tag-amber">Account Unlock</span><span class="tag tag-amber">Password Reset</span><span class="tag tag-amber">Access Provisioning</span><span class="tag tag-amber">Offboarding</span></div>
+        </div>
+        <div class="lab-badge"><span class="badge-done">✓ Done</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section id="environments">
+    <div class="sec-header"><span class="sec-tag">Lab Environments</span><div class="sec-rule"></div></div>
+    <div class="env-grid">
+      <div class="env-card">
+        <div class="env-label">Cloud — Entra ID</div>
+        <div class="env-val">Microsoft Entra ID Free Tier<br>Tenant: jalenthomas1216gmail.onmicrosoft.com<br>10+ users · 2 groups · 1 app registration<br>PowerShell 7 + Microsoft Graph API</div>
+      </div>
+      <div class="env-card">
+        <div class="env-label">On-Premises — Active Directory</div>
+        <div class="env-val">VirtualBox · Windows Server 2022<br>Domain: lab.local · DC: 192.168.1.1<br>Windows 10 Enterprise client domain-joined<br>AD DS · GPO · DNS · PowerShell 5.1</div>
+      </div>
+      <div class="env-card">
+        <div class="env-label">Help Desk — osTicket & ServiceNow</div>
+        <div class="env-val">ServiceNow PDI: dev299488.service-now.com<br>osTicket on Ubuntu Server (VirtualBox)<br>LAMP: Apache 2.4 · MySQL 8.4 · PHP 8.5<br>NAT port forwarding · host port 8080</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-header"><span class="sec-tag">Work Experience</span><div class="sec-rule"></div></div>
+    <div class="exp-list">
+      <div class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-title">Work Study — Innovation Lab</div>
+            <div class="exp-org">Lone Star College–University Park · Part-time</div>
+          </div>
+          <div class="exp-date">Aug 2024 – Jan 2026</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Troubleshot laboratory equipment and technology issues to minimize downtime</li>
+          <li>Provided technical guidance, training, and support for lab personnel</li>
+          <li>Served as primary technical point of contact; maintained high customer satisfaction</li>
+          <li>Applied conflict resolution skills in a fast-paced, public-facing environment</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-title">Work Study — Student Success Institute</div>
+            <div class="exp-org">Lone Star College–University Park · Part-time</div>
+          </div>
+          <div class="exp-date">Mar 2024 – May 2024</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Researched and compiled content for student success and LinkedIn development workshops</li>
+          <li>Organized and maintained confidential student records per data handling procedures</li>
+          <li>Supported program operations including events, inventory, and student recruitment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-header"><span class="sec-tag">Get In Touch</span><div class="sec-rule"></div></div>
+    <div class="contact-grid">
+
+      <a href="tel:3375329460" class="contact-card">
+        <div class="contact-icon">📞</div>
+        <div><div class="contact-lbl">Phone</div><div class="contact-val">337-532-9460</div></div>
+      </a>
+      <a href="https://www.linkedin.com/in/jalen-t-19817a379/" target="_blank" class="contact-card">
+        <div class="contact-icon">👤</div>
+        <div><div class="contact-lbl">LinkedIn</div><div class="contact-val">linkedin.com/in/jalen-t-19817a379</div></div>
+      </a>
+      <a href="https://github.com/JalenHT/IT-homelab" target="_blank" class="contact-card">
+        <div class="contact-icon">📁</div>
+        <div><div class="contact-lbl">GitHub</div><div class="contact-val">github.com/JalenHT/IT-homelab</div></div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-mono">Jalen Thomas · Houston/Spring TX · IT Support & Systems Administration · 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>
