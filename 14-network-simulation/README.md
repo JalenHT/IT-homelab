@@ -243,5 +243,3 @@ Configured server (HQ-DHCP-DNS, 10.10.10.100) with four DHCP pools — one per V
 ## Final Topology
 
 ![Final topology](images/08-final-topology.png)
-
-*Note: the WAN link between HQ-RTR1 and BR-RTR1 renders as a dashed line in Packet Tracer's logical view — this reflects the platform's serial-style link rendering, not a fault. Connectivity across this link was confirmed via CLI (`show ip interface brief`, `show ip route`) and the cross-site ping test above.*
