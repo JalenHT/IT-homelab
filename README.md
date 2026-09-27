@@ -23,6 +23,7 @@ Hands-on IT infrastructure labs built across Windows Server, Active Directory, M
 | Lab 11 | ServiceNow PDI — Hands-On | Catalog items, incidents, SLAs, dashboards | ✅ Complete |
 | Lab 12 | osTicket Self-Hosted Help Desk | Ubuntu Server, LAMP stack, ticket workflows | ✅ Complete |
 | Lab 13 | Active Directory Help Desk Scenarios | Account unlocks, password resets, offboarding | ✅ Complete |
+| Lab 14 | Two-Site Enterprise Network Simulation | VLANs, OSPF, ACLs, DHCP/DNS relay, Cisco Packet Tracer | ✅ Complete |
 
 ## Technical Skills Demonstrated
 
@@ -45,6 +46,11 @@ Hands-on IT infrastructure labs built across Windows Server, Active Directory, M
 - UPN suffix management
 - Sync error troubleshooting (AADSTS700027)
 - Identity lifecycle management
+- VLAN configuration and inter-VLAN routing (router-on-a-stick)
+- OSPF dynamic routing
+- Extended ACLs for network segmentation
+- DHCP/DNS relay across subnets (ip helper-address)
+- Layered network troubleshooting using Cisco IOS `show` commands
 
 ## Tools and Technologies
 
@@ -63,6 +69,7 @@ Hands-on IT infrastructure labs built across Windows Server, Active Directory, M
 - Ubuntu Server 22.04
 - Visual Studio Code
 - GitHub
+- Cisco Packet Tracer
 
 ## Lab Environments
 
